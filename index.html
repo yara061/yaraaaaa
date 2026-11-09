@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الملكة الاسطورة الشطورة يارا</title>
+<meta property="og:title" content="الملكة الاسطورة الشطورة يارا">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_AR">
+<meta name="description" content="وردة مصنوعة من كلمة yara، إلى الملكة الاسطورة الشطورة يارا">
+<meta property="og:description" content="وردة مصنوعة من كلمة yara، إلى الملكة الاسطورة الشطورة يارا">
+<meta name="theme-color" content="#06140b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B9%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Cairo:wght@800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;touch-action:manipulation}
+  body{font-family:'Cairo',Tahoma,'Segoe UI',Arial,sans-serif;background:#040d07;-webkit-text-size-adjust:100%}
+
+  /* ---------- Start screen ---------- */
+  #start{
+    position:fixed;inset:0;z-index:10;display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 42%,#173222 0%,#040d07 74%);
+    transition:opacity .8s ease,visibility .8s;
+  }
+  #start.hide{opacity:0;visibility:hidden;pointer-events:none}
+  #go{
+    font:800 clamp(1.7rem,6.5vw,2.6rem)/1 'Cairo',Tahoma,'Segoe UI',Arial,sans-serif;
+    color:#fff;border:0;cursor:pointer;
+    padding:.72em 1.9em;border-radius:999px;
+    background:linear-gradient(180deg,#ff5656 0%,#d8101f 52%,#a60014 100%);
+    box-shadow:0 9px 0 #6c000d,0 20px 44px rgba(255,20,40,.42),inset 0 2px 0 rgba(255,255,255,.38);
+    text-shadow:0 2px 3px rgba(80,0,10,.55);
+    animation:pulse 2.2s ease-in-out infinite;
+    transition:transform .12s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  #go:hover{filter:brightness(1.08)}
+  #go:active{transform:translateY(6px);animation:none;box-shadow:0 3px 0 #6c000d,0 8px 20px rgba(255,20,40,.38),inset 0 2px 0 rgba(255,255,255,.3)}
+  #go:focus-visible{outline:4px solid #ffd54f;outline-offset:6px}
+  @keyframes pulse{0%,100%{box-shadow:0 9px 0 #6c000d,0 20px 44px rgba(255,20,40,.34),inset 0 2px 0 rgba(255,255,255,.38)}
+                   50%{box-shadow:0 9px 0 #6c000d,0 22px 64px rgba(255,20,40,.65),inset 0 2px 0 rgba(255,255,255,.38)}}
+
+  /* ---------- Farm scene (night, darker than the flower) ---------- */
+  #scene{
+    --fs:clamp(1.35rem,min(6.2vw,6.4vh),3.1rem);
+    position:fixed;inset:0;overflow:hidden;opacity:0;visibility:hidden;
+    transition:opacity 1.2s ease;
+    background:linear-gradient(180deg,#030a06 0%,#07170d 45%,#0d2616 78%);
+  }
+  @supports (height:100svh){#scene{--fs:clamp(1.35rem,min(6.2vw,6.4svh),3.1rem)}}
+  #scene.show{opacity:1;visibility:visible}
+
+  .stars{position:absolute;inset:0 0 40% 0;opacity:.75;
+    background-image:
+      radial-gradient(1.4px 1.4px at 12% 18%,#fff,transparent),
+      radial-gradient(1px 1px at 27% 8%,#dfe9ff,transparent),
+      radial-gradient(1.6px 1.6px at 41% 24%,#fff,transparent),
+      radial-gradient(1px 1px at 58% 11%,#fff,transparent),
+      radial-gradient(1.4px 1.4px at 73% 20%,#dfe9ff,transparent),
+      radial-gradient(1px 1px at 86% 9%,#fff,transparent),
+      radial-gradient(1.2px 1.2px at 93% 28%,#fff,transparent),
+      radial-gradient(1px 1px at 6% 36%,#dfe9ff,transparent),
+      radial-gradient(1.2px 1.2px at 66% 34%,#fff,transparent),
+      radial-gradient(1px 1px at 35% 40%,#fff,transparent)}
+  .moon{position:absolute;top:6%;left:8%;width:clamp(44px,9vw,84px);aspect-ratio:1;border-radius:50%;
+        background:radial-gradient(circle at 38% 36%,#fffdf0 0%,#e9edc9 60%,#b9c79a 100%);
+        box-shadow:0 0 40px 10px rgba(220,240,190,.14)}
+  .glow{position:absolute;inset:0;background:radial-gradient(ellipse 46% 42% at 50% 40%,rgba(80,170,100,.17),transparent 70%)}
+
+  .hills{position:absolute;left:0;bottom:0;width:100%;height:46%}
+  .fence{position:absolute;left:0;bottom:24%;width:100%;height:56px;opacity:.9}
+  .field{position:absolute;left:0;right:0;bottom:0;height:15%;
+         background:repeating-linear-gradient(180deg,#0a2713 0 13px,#0d3018 13px 26px);
+         border-top:2px solid #14402a}
+
+  header{position:absolute;top:max(10px,env(safe-area-inset-top));left:0;right:0;text-align:center;padding:0 12px;z-index:2}
+  h1{
+    font-family:'Aref Ruqaa','Amiri','Noto Naskh Arabic',Tahoma,serif;
+    font-weight:700;font-size:var(--fs);line-height:1.45;
+    background:linear-gradient(100deg,#f3d98a 0%,#fff3c4 35%,#d9b04a 65%,#f3d98a 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,.7));
+  }
+  .rule{display:flex;align-items:center;justify-content:center;gap:10px}
+  .rule i{display:block;height:2px;width:clamp(36px,14vw,110px);background:linear-gradient(90deg,transparent,#d9b04a,transparent)}
+  .rule b{display:block;width:8px;height:8px;transform:rotate(45deg);background:#d9b04a;border-radius:1px}
+
+  #plant{
+    position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+    height:calc(100vh - var(--fs)*1.45 - 30px);
+    max-width:100vw;aspect-ratio:460/760;width:auto;z-index:1;
+  }
+  @supports (height:100svh){#plant{height:calc(100svh - var(--fs)*1.45 - 30px)}}
+  @media (prefers-reduced-motion:reduce){#go{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="start">
+  <button id="go" type="button">اضغط هنا</button>
+</div>
+
+<main id="scene" aria-label="وردة من كلمة يارا">
+  <div class="stars"></div>
+  <div class="moon"></div>
+  <div class="glow"></div>
+
+  <svg class="hills" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#0f3320" d="M0 120 C150 40 300 60 450 110 S750 170 1000 70 V400 H0Z"/>
+    <path fill="#0c2a1a" d="M0 190 C200 120 380 150 560 190 S850 210 1000 150 V400 H0Z"/>
+    <path fill="#09210f" d="M0 262 C220 222 420 252 620 272 S900 262 1000 238 V400 H0Z"/>
+  </svg>
+
+  <svg class="fence" aria-hidden="true">
+    <defs>
+      <pattern id="fp" width="52" height="56" patternUnits="userSpaceOnUse">
+        <rect x="0" y="16" width="52" height="5" fill="#3d2a1b"/>
+        <rect x="0" y="35" width="52" height="5" fill="#3d2a1b"/>
+        <rect x="0" y="5" width="9" height="51" rx="2" fill="#2e2015"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="56" fill="url(#fp)"/>
+  </svg>
+  <div class="field"></div>
+
+  <header>
+    <h1>الملكة الاسطورة الشطورة يارا</h1>
+    <div class="rule"><i></i><b></b><i></i></div>
+  </header>
+
+  <canvas id="plant" role="img" aria-label="وردة مكوّنة من كلمة yara على ساق خضراء"></canvas>
+</main>
+
+<!-- Music: yaya1.mp3 must sit in the same folder as this file -->
+<audio id="song" preload="auto">
+  <source src="yaya1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ================= Setup ================= */
+  const W = 460, H = 760, WORD = 'yara';
+  const canvas = document.getElementById('plant');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const hash = (x, y) => { const h = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453; return h - Math.floor(h); };
+
+  const C = { x: 230, y: 292 };                         // centre of the flower head
+  const SQ = 0.9;                                       // slight perspective squash
+  const P = [[230, 742], [198, 664], [264, 560], [230, 440]]; // stem bezier
+  const bez = t => {
+    const u = 1 - t;
+    return {
+      x: u*u*u*P[0][0] + 3*u*u*t*P[1][0] + 3*u*t*t*P[2][0] + t*t*t*P[3][0],
+      y: u*u*u*P[0][1] + 3*u*u*t*P[1][1] + 3*u*t*t*P[2][1] + t*t*t*P[3][1]
+    };
+  };
+  const dbez = t => {
+    const u = 1 - t;
+    return {
+      x: 3*u*u*(P[1][0]-P[0][0]) + 6*u*t*(P[2][0]-P[1][0]) + 3*t*t*(P[3][0]-P[2][0]),
+      y: 3*u*u*(P[1][1]-P[0][1]) + 6*u*t*(P[2][1]-P[1][1]) + 3*t*t*(P[3][1]-P[2][1])
+    };
+  };
+
+  /* ================= Off-screen colour maps ================= */
+  const mk = () => { const c = document.createElement('canvas'); c.width = W; c.height = H; return c; };
+  const roseC = mk(), leafC = mk();
+
+  const PAL = [
+    ['#5a0b1d', '#a81a3d', '#e04467', '#ffa3b8'],
+    ['#500918', '#9a1536', '#d52e55', '#fa7a95'],
+    ['#470716', '#8c1030', '#c9234c', '#f0627f'],
+    ['#3f0513', '#7e0d2a', '#b81b42', '#e0506f'],
+    ['#350310', '#70091f', '#a8163a', '#d03f60']
+  ];
+
+  function rosePetal(c, ang, L, Wd, pal) {
+    c.save();
+    c.translate(C.x, C.y); c.scale(1, SQ); c.rotate(ang * Math.PI / 180);
+    c.beginPath();
+    c.moveTo(0, 0);
+    c.bezierCurveTo(-Wd*0.70, -L*0.10, -Wd*0.78, -L*0.80, -Wd*0.34, -L*0.97);
+    c.bezierCurveTo(-Wd*0.14, -L*1.05,  Wd*0.14, -L*1.05,  Wd*0.34, -L*0.97);
+    c.bezierCurveTo( Wd*0.78, -L*0.80,  Wd*0.70, -L*0.10, 0, 0);
+    c.closePath();
+    const g = c.createLinearGradient(0, 0, 0, -L);
+    g.addColorStop(0, pal[0]); g.addColorStop(0.38, pal[1]);
+    g.addColorStop(0.76, pal[2]); g.addColorStop(1, pal[3]);
+    c.shadowColor = 'rgba(25,0,8,.7)'; c.shadowBlur = 14;
+    c.fillStyle = g; c.fill();
+    c.shadowColor = 'transparent'; c.shadowBlur = 0;
+    c.lineWidth = 3.4; c.lineJoin = 'round'; c.strokeStyle = 'rgba(40,0,10,.95)'; c.stroke();
+    // lit rim
+    c.beginPath();
+    c.moveTo(-Wd*0.60, -L*0.76);
+    c.bezierCurveTo(-Wd*0.50, -L*0.90, -Wd*0.30, -L*0.94, -Wd*0.12, -L*0.97);
+    c.bezierCurveTo( Wd*0.14, -L*0.99,  Wd*0.34, -L*0.93,  Wd*0.60, -L*0.76);
+    c.lineWidth = 2.4; c.lineCap = 'round'; c.strokeStyle = 'rgba(255,215,225,.55)'; c.stroke();
+    // petal veins
+    c.strokeStyle = 'rgba(50,0,14,.28)'; c.lineWidth = 1.6;
+    for (const k of [-0.28, 0, 0.28]) {
+      c.beginPath(); c.moveTo(0, -L*0.12);
+      c.quadraticCurveTo(Wd*k*0.9, -L*0.5, Wd*k*0.6, -L*0.82); c.stroke();
+    }
+    c.restore();
+  }
+
+  (function drawRose() {
+    const c = roseC.getContext('2d');
+    // [petals, length, width, start angle]
+    const layers = [[6, 168, 134, 14], [5, 138, 114, 40], [5, 110, 94, 10], [4, 84, 76, 46], [3, 60, 62, 22]];
+    layers.forEach(([n, L, Wd, off], li) => {
+      for (let k = 0; k < n; k++) rosePetal(c, off + k * 360 / n, L, Wd, PAL[li]);
+    });
+    // heart of the rose: a tight spiral
+    c.save();
+    c.translate(C.x, C.y); c.scale(1, SQ);
+    const g = c.createRadialGradient(0, 0, 2, 0, 0, 30);
+    g.addColorStop(0, '#2b030c'); g.addColorStop(1, '#8a1230');
+    c.beginPath(); c.arc(0, 0, 30, 0, Math.PI * 2);
+    c.shadowColor = 'rgba(25,0,8,.7)'; c.shadowBlur = 10; c.fillStyle = g; c.fill();
+    c.shadowColor = 'transparent'; c.shadowBlur = 0;
+    c.lineWidth = 3; c.strokeStyle = 'rgba(30,0,8,.95)'; c.stroke();
+    const spiral = (ox, oy, col, lw) => {
+      c.beginPath();
+      for (let a = 0.3; a <= 4.4 * Math.PI; a += 0.1) {
+        const r = 1.5 + a * 1.9;
+        const x = ox + r * Math.cos(a), y = oy + r * Math.sin(a);
+        a <= 0.31 ? c.moveTo(x, y) : c.lineTo(x, y);
+      }
+      c.strokeStyle = col; c.lineWidth = lw; c.lineCap = 'round'; c.stroke();
+    };
+    spiral(0, 0, 'rgba(25,0,8,.95)', 3.4);
+    spiral(1.6, 1.6, 'rgba(255,150,175,.7)', 1.8);
+    c.restore();
+    // light from the upper left, shade at the lower right
+    c.globalCompositeOperation = 'source-atop';
+    let rg = c.createRadialGradient(190, 230, 6, 190, 230, 150);
+    rg.addColorStop(0, 'rgba(255,215,225,.30)'); rg.addColorStop(1, 'rgba(255,215,225,0)');
+    c.fillStyle = rg; c.fillRect(0, 0, W, H);
+    rg = c.createRadialGradient(285, 360, 10, 285, 360, 170);
+    rg.addColorStop(0, 'rgba(20,0,8,.38)'); rg.addColorStop(1, 'rgba(20,0,8,0)');
+    c.fillStyle = rg; c.fillRect(0, 0, W, H);
+    c.globalCompositeOperation = 'source-over';
+  })();
+
+  function leaf(c, x, y, ang, len, wid, cols) {
+    c.save();
+    c.translate(x, y); c.rotate(ang * Math.PI / 180);
+    const g = c.createLinearGradient(0, 0, 0, -len);
+    g.addColorStop(0, cols[0]); g.addColorStop(0.5, cols[1]); g.addColorStop(1, cols[2]);
+    c.beginPath();
+    c.moveTo(0, 0);
+    c.quadraticCurveTo(wid, -len * 0.5, 0, -len);
+    c.quadraticCurveTo(-wid, -len * 0.5, 0, 0);
+    c.closePath();
+    c.fillStyle = g; c.fill();
+    c.lineWidth = 3.2; c.lineJoin = 'round'; c.strokeStyle = 'rgba(4,38,12,.95)'; c.stroke();
+    c.lineWidth = 2.4; c.beginPath();
+    c.moveTo(0, -4); c.lineTo(0, -len * 0.93);
+    for (let k = 0.18; k < 0.8; k += 0.16) {
+      c.moveTo(0, -len * k); c.lineTo(wid * 0.34, -len * (k + 0.15));
+      c.moveTo(0, -len * k); c.lineTo(-wid * 0.34, -len * (k + 0.15));
+    }
+    c.stroke();
+    c.restore();
+  }
+
+  const LEAF_COL = ['#1f7a2c', '#3fae4c', '#a2e47c'];
+  const SEPAL_COL = ['#1b6a27', '#379f45', '#8fdc6f'];
+  const attach = [];
+
+  (function drawLeaves() {
+    const c = leafC.getContext('2d');
+    const a = bez(0.28), b = bez(0.52);
+    leaf(c, a.x, a.y, -62, 150, 98, LEAF_COL); attach.push({ x: a.x, y: a.y, t: 0.28 });
+    leaf(c, b.x, b.y,  58, 134, 88, LEAF_COL); attach.push({ x: b.x, y: b.y, t: 0.52 });
+    [180, 156, -156, 130, -130].forEach(ang => leaf(c, C.x, 398, ang, ang % 180 === 0 ? 108 : 98, 40, SEPAL_COL));
+    attach.push({ x: C.x, y: 410, t: 1 });
+  })();
+
+  /* ================= Words ================= */
+  const T_STEM = 1900;
+  const easeOut = p => 1 - Math.pow(1 - p, 3);
+  const reachTime = t => (1 - Math.pow(1 - t, 1 / 3)) * T_STEM;
+
+  let FS = 9, FONT = '', WW = 20, STEP = 23, RH = 9;
+  let roseWords = [], leafWords = [], T_END = 5000;
+  let S = 2;
+
+  function buildWords(src, skip) {
+    const d = src.getContext('2d').getImageData(0, 0, W, H).data;
+    const sk = skip ? skip.getContext('2d').getImageData(0, 0, W, H).data : null;
+    const al = (data, x, y) => {
+      x = Math.round(x); y = Math.round(y);
+      return (x < 0 || y < 0 || x >= W || y >= H) ? 0 : data[(y * W + x) * 4 + 3];
+    };
+    const hw = WW * 0.46, hh = FS * 0.38;
+    const probes = [[0,0],[-hw,0],[hw,0],[-hw,-hh],[hw,-hh],[-hw,hh],[hw,hh]];
+    const out = [];
+    for (let r = 0, y = FS; y < H - FS; r++, y += RH) {
+      const off = (r % 2) * STEP / 2;
+      for (let x = WW / 2 + off; x < W - WW / 2; x += STEP) {
+        if (probes.some(([px, py]) => al(d, x + px, y + py) < 250)) continue;
+        if (sk && probes.some(([px, py]) => al(sk, x + px, y + py) > 30)) continue;
+        const i = (Math.round(y) * W + Math.round(x)) * 4;
+        const j = (hash(x, y) - 0.5) * 14;
+        const cc = v => Math.max(0, Math.min(255, Math.round(v)));
+        out.push({ x, y, d: 0, c: `rgb(${cc(d[i] + j)},${cc(d[i+1] + j)},${cc(d[i+2] + j)})` });
+      }
+    }
+    return out;
+  }
+
+  // Rebuild everything for the current screen so the text stays crisp and legible everywhere.
+  function layout() {
+    const cssW = canvas.getBoundingClientRect().width || W;
+    const scale = cssW / W;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(cssW * Math.min(3, dpr) * 1.0) || W * 2;
+    canvas.height = Math.round(canvas.width * H / W);
+    S = canvas.width / W;
+    ctx.direction = 'ltr';
+
+    FS = clamp(8.8 / scale, 5.6, 12.5);       // words never render smaller than ~8.8 CSS px
+    FONT = `700 ${FS}px Arial, Helvetica, sans-serif`;
+    ctx.font = FONT;
+    WW = ctx.measureText(WORD).width;
+    STEP = WW + FS * 0.32;
+    RH = FS * 0.96;
+
+    roseWords = buildWords(roseC, null);
+    leafWords = buildWords(leafC, roseC);
+
+    leafWords.forEach(w => {
+      let best = Infinity, ref = attach[0];
+      attach.forEach(a => { const dd = Math.hypot(w.x - a.x, w.y - a.y); if (dd < best) { best = dd; ref = a; } });
+      w.d = reachTime(ref.t) + best * 3.2 + hash(w.y, w.x) * 120;
+    });
+    roseWords.forEach(w => {
+      const k = clamp(Math.hypot(w.x - C.x, (w.y - C.y) / SQ) / 172, 0, 1);  // bloom from the centre outwards
+      w.d = T_STEM + 300 + k * 2800 + hash(w.x, w.y) * 150;
+    });
+    T_END = T_STEM + 300 + 2800 + 150 + 420;
+  }
+
+  /* ================= Drawing ================= */
+  const stemPath = new Path2D();
+  stemPath.moveTo(P[0][0], P[0][1]);
+  stemPath.bezierCurveTo(P[1][0], P[1][1], P[2][0], P[2][1], P[3][0], P[3][1]);
+  let stemLen = 0;
+  { let prev = bez(0); for (let i = 1; i <= 60; i++) { const q = bez(i / 60); stemLen += Math.hypot(q.x - prev.x, q.y - prev.y); prev = q; } }
+
+  function drawGround() {
+    const g = ctx.createRadialGradient(230, 746, 4, 230, 748, 104);
+    g.addColorStop(0, '#6b4426'); g.addColorStop(1, '#2c1a0f');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(230, 750, 104, 22, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#3f9a47'; ctx.lineWidth = 2.4; ctx.lineCap = 'round';
+    for (let i = 0; i < 18; i++) {
+      const x = 142 + i * 10.2 + (hash(i, 3) - 0.5) * 6;
+      const h = 9 + hash(i, 9) * 10, lean = (hash(i, 5) - 0.5) * 9;
+      ctx.beginPath(); ctx.moveTo(x, 746); ctx.quadraticCurveTo(x + lean * 0.4, 746 - h * 0.6, x + lean, 746 - h); ctx.stroke();
+    }
+  }
+
+  function drawThorn(t, side) {
+    const p = bez(t), d = dbez(t), m = Math.hypot(d.x, d.y);
+    const tx = d.x / m, ty = d.y / m, nx = ty * side, ny = -tx * side;
+    ctx.fillStyle = '#2f8a3a';
+    ctx.strokeStyle = '#0c3d14'; ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(p.x + nx * 4 - tx * 5, p.y + ny * 4 - ty * 5);
+    ctx.lineTo(p.x + nx * 15 + tx * 6, p.y + ny * 15 + ty * 6);
+    ctx.lineTo(p.x + nx * 4 + tx * 5, p.y + ny * 4 + ty * 5);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+  }
+
+  function drawWords(list, t) {
+    ctx.font = FONT; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for (const w of list) {
+      const p = (t - w.d) / 380;
+      if (p <= 0) continue;
+      ctx.fillStyle = w.c;
+      if (p >= 1) { ctx.fillText(WORD, w.x, w.y); continue; }
+      const s = 0.4 + 0.6 * easeOut(p);
+      ctx.globalAlpha = p;
+      ctx.save(); ctx.translate(w.x, w.y); ctx.scale(s, s); ctx.fillText(WORD, 0, 0); ctx.restore();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  let t0 = 0, running = false;
+  function frame(now) {
+    const t = now - t0;
+    ctx.setTransform(S, 0, 0, S, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ctx.direction = 'ltr';
+    drawGround();
+
+    let sway = 0;
+    if (!reduceMotion && t > T_END) sway = Math.sin((t - T_END) / 1400) * 0.011 * Math.min(1, (t - T_END) / 2000);
+    ctx.save();
+    ctx.translate(230, 742); ctx.rotate(sway); ctx.translate(-230, -742);
+
+    const p = easeOut(Math.min(1, t / T_STEM));
+    if (p > 0.002) {
+      ctx.lineCap = 'round';
+      ctx.setLineDash([stemLen * p, stemLen * 2]);
+      ctx.strokeStyle = '#0a3a12'; ctx.lineWidth = 15; ctx.stroke(stemPath);          // outline
+      ctx.strokeStyle = '#2f9a3b'; ctx.lineWidth = 11; ctx.stroke(stemPath);          // body
+      ctx.strokeStyle = '#8fe06e'; ctx.lineWidth = 3;                                 // highlight
+      ctx.save(); ctx.translate(-2.5, 0); ctx.stroke(stemPath); ctx.restore();
+      ctx.setLineDash([]);
+      [[0.18, 1], [0.40, -1], [0.62, 1], [0.8, -1]].forEach(([tt, side]) => { if (p >= tt) drawThorn(tt, side); });
+    }
+    drawWords(leafWords, t);
+    drawWords(roseWords, t);
+    ctx.restore();
+
+    if (t < T_END || !reduceMotion) requestAnimationFrame(frame);
+  }
+
+  /* ================= Interaction & music ================= */
+  const song = document.getElementById('song');
+  const btn = document.getElementById('go');
+  const start = document.getElementById('start');
+  const scene = document.getElementById('scene');
+
+  song.loop = false;                                           // plays once, then stops
+  song.addEventListener('ended', () => { song.pause(); try { song.currentTime = 0; } catch (e) {} });
+
+  function startMusic() {
+    try { song.currentTime = 0; } catch (e) {}
+    const pr = song.play();
+    if (pr && typeof pr.catch === 'function') pr.catch(err => console.warn('Audio could not play:', err));
+  }
+
+  layout();
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
+  window.addEventListener('orientationchange', () => { clearTimeout(rt); rt = setTimeout(layout, 300); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => layout());
+
+  btn.addEventListener('click', () => {
+    start.classList.add('hide');
+    scene.classList.add('show');
+    startMusic();
+    layout();                                                 // measure again now that the scene is visible
+    if (!running) { running = true; t0 = performance.now(); requestAnimationFrame(frame); }
+  });
+})();
+</script>
+</body>
+</html>
